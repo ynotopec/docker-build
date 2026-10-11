@@ -143,6 +143,8 @@ kubectl -n "$KUBE_NAMESPACE" exec docker-build -- docker push registry:5000/myap
 | Push interne échoue | Vérifier que `registry:5000` est joignable depuis le pod |
 | Certificat absent | Vérifier le `ClusterIssuer`, cert-manager, l'Ingress et le DNS de `TLS_HOST` |
 | Outils MCP absents | Redémarrer l'agent |
+| `pods "docker-build" not found` | `docker-build-setup.sh` n'a pas été exécuté (`install.sh` ne déploie pas le K8s) |
+| `Error: TLS_HOST is required` | Définir `TLS_HOST` et `CERT_MANAGER_CLUSTER_ISSUER` (non générés dans `.env`) |
 
 ## Reproduire l’installation
 

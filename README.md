@@ -48,6 +48,17 @@ CERT_MANAGER_CLUSTER_ISSUER="letsencrypt-production" \
 ./docker-build-setup.sh
 ```
 
+**Ordre obligatoire** : `install.sh` ne crée aucune ressource Kubernetes. Sans
+`docker-build-setup.sh`, les outils MCP échouent avec
+`pods "docker-build" not found`. `docker-build-setup.sh` ne lit pas `.env` :
+ses variables (`KUBE_NAMESPACE`, `TLS_HOST`, `CERT_MANAGER_CLUSTER_ISSUER`) doivent
+être passées explicitement ou exportées. `TLS_HOST` et `CERT_MANAGER_CLUSTER_ISSUER`
+ne sont pas générés dans `.env` par `install.sh`.
+
+Ne pas appliquer `docker-build-pod.yaml` ou `registry.yaml` seuls avec `kubectl` :
+ces manifestes ne créent ni Ingress ni TLS. `docker-build-setup.sh` peut les
+adopter ensuite, mais le résultat n'est pas une installation complète.
+
 Les variables d'environnement suivent la convention POSIX en majuscules. Dans
 le chart, leurs équivalents suivent la structure Helm usuelle :
 `ingress.host` et `certManager.clusterIssuer`. Le trafic interne entre le pod de

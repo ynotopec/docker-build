@@ -9,3 +9,4 @@
 - Maintain compatibility with Linux on both `x86_64` and `aarch64` (including NVIDIA H100 hosts and DGX Spark).
 - Run unit tests and shell syntax checks before committing.
 - Keep Hermes MCP configuration upgrades idempotent and preserve unrelated user configuration.
+- `docker-build-cli.sh` is the transport-free client (build/push/pull/run/images/registry/cleanup); keep it kubectl-only and mirroring the MCP tools. The agent-facing guide lives in `skills/docker-build-cli/SKILL.md`.
